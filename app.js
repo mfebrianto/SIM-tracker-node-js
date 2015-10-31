@@ -1,4 +1,3 @@
-var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,6 +6,16 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+var express   = require('express')
+    , http    = require('http')
+    , async   = require('async')
+    , multer  = require('multer')
+    , upload  = multer({ dest: 'uploads/' })
+    , easyimg = require('easyimage')
+    , _       = require('lodash');
+
+var cv      = require('opencv');
 
 var app = express();
 
@@ -21,6 +30,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// MIME types for image uploads
+var exts = {
+    'image/jpeg': '.jpg',
+    'image/png' : '.png',
+    'image/gif' : '.gif'
+};
+
 
 app.use('/', routes);
 app.use('/users', users);
