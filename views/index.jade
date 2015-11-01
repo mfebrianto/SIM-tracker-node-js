@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h2
+        Please upload an image
+    p
+        em
+            Note: please ensure it's at least 960 x 300 pixels in size.
+
+    form(method='post' action='/upload' enctype='multipart/form-data')
+        .form-group
+            input(type='file' name='file')
+        .form-group
+            input(type='submit' value='Submit' class='btn btn-primary')
